@@ -1,0 +1,4 @@
+opencv_python==4.7.0.72
+psycopg2==2.9.5
+pytesseract==0.3.10
+ultralytics==8.0.20
