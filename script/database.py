@@ -11,8 +11,10 @@ class Database:
         self.connect()
 
     def connect(self):
+        print("connecting to database...")
         self.connection = psycopg2.connect(config.Database.connection_string)
         self._cur = self.connection.cursor()
+        print("database connection establised: ", self.connect)
 
     def executevars(self, query:str, vars):
         try:
@@ -44,21 +46,13 @@ class Database:
             self.connect()
             self.cursor.execute(query)
 
-    def send(self, img, plate):
-        # encode img to base64
-        encoded_string = base64.b64encode(img)
-        
+    def insert(self, img, plate):
+        self.executevars(
+            "INSERT INTO Captured (PlateNumber, Image, Location, DateTimeCaptured, IsActive) VALUES (%s, %s, %s, %s, %s)",
+            (plate, img, config.Map.location, 'now()', True)
+        )
+        self.connection.commit()
 
-    # def get_all_sheetmaps(self) -> list[model.SheetMap]:
-    #     self.execute(queries.SheetMap.get_all_sheetmaps())
-    #     result = self.cursor.fetchall()
-
-    #     return list(map(lambda sheetmap: model.SheetMap(
-    #         sheetmap_id=sheetmap[0],
-    #         name=sheetmap[1],
-    #         server_id=sheetmap[2],
-    #         response_sheet_id=sheetmap[3],
-    #         is_active=sheetmap[4],
-    #         datetime_created=sheetmap[5],
-    #         datetime_updated=sheetmap[6]
-    #     ), result))
+    def get_by_id(self, id:int):
+        self.execute(f"SELECT * FROM Captured WHERE Id = {id}")
+        return self.cursor.fetchone()
