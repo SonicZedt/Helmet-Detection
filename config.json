@@ -11,5 +11,12 @@
         "plate.failed": "Undetected"
     },
 
+    "resolution": {
+        "width": 960,
+        "height": 480
+    },
+
+    "conf": 0.45,
+
     "constr": ""
 }

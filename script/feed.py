@@ -2,7 +2,9 @@ import cv2
 import ocr
 import os
 import base64
+import config
 from enums import ClassIdEnum, LineEdge
+from helper import rbf
 
 
 class Result:
@@ -51,9 +53,10 @@ class Result:
         return None
 
 class Detect:
-    def __init__(self, model, frame) -> None:
+    def __init__(self, model, frame, _ = True) -> None:
         # hasil mentah deteksi
-        results = model.predict(source=frame, conf=0.75)
+        results = rbf.detect(frame, config.conf) if _ else model.predict(source=frame, conf=config.conf)
+
         #DP = results[0].numpy()
         self.res = Result(results)
 
@@ -224,7 +227,7 @@ def detect(model, db = None, src = 0):
 
             # encode frame dari matrix ke base64 string trus disimpen ke database
             if db:
-                _, buffer = cv2.imencode('png', frame)
+                _, buffer = cv2.imencode('.png', frame)
                 encoded_string = base64.b64encode(buffer)
                 db.insert(encoded_string, text)
 
