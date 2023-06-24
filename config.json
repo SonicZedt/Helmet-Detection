@@ -1,12 +1,4 @@
 {
-    "libraries": {
-        "tesseract.path": "../libraries/tesseract-ocr/tesseract.exe"
-    },
-
-    "map" : {
-        "location": "foo"
-    },
-
     "resolution": {
         "width": 960,
         "height": 480
