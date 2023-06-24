@@ -1,6 +1,4 @@
 import feed
-from utils import Output
-from database import Database
 
 model = None
 try:
@@ -9,9 +7,13 @@ try:
 except:
     pass
 
-database = Database()
 
-#feed.detect_from_image(model, database, 'misc/test.png')
-feed.detect(model, None, 'misc/traffic.mp4')
+# pilih salah satu, dari gambar atau video.
+# gaboleh dua-duanya sekaligus
 
-#Output.show_by_id(2, database)
+# detect dari gambar
+#feed.detect_from_image(model, img_path='misc/test.png')
+
+# detect dari video, kalo mau dari webcam tinggal ganti src=0
+# atau kalo mau dari video tinggal ganti src='path/ke/video.mp4'
+feed.detect(model, src='misc/traffic.mp4')

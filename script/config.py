@@ -10,12 +10,6 @@ class Library:
 class Map:
     location = config['map']['location']
 
-class Default:
-    plate_undetected = config['default']['plate.failed']
-
-class Database:
-    connection_string = config['constr']
-
 class Resolution:
     h = config['resolution']['height']
     w = config['resolution']['width']

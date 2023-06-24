@@ -1,6 +1,7 @@
 import base64
 import cv2
 import numpy as np
+from enums import ClassIdEnum
 
 def getClassName(num:int) -> str:
     if num == 0:
@@ -12,19 +13,16 @@ def getClassName(num:int) -> str:
     else:
         return ''
 
-class Output:    
-    def show_by_id(id:int, db):
-        result = db.get_by_id(id)
-        
-        print(f"""
-        Result for data {id}
-        - Plate Number: {result[1]}
-        - Location: {result[3]}
-        - Date Captured: {result[4].strftime("%Y/%m/%d %H:%M:%S")}
-        """)
+def boundingBoxColor(id:ClassIdEnum) -> tuple:
+    # ini (R, G, B)
+    # paling kecil 0, paling gede 255
+    # misal:
+    # (255, 0, 0) = biru
+    # (255, 255, 0) = biru campur hijau = kuning
 
-        buffer = base64.b64decode(result[2])
-        img = cv2.imdecode(np.frombuffer(buffer, dtype=np.uint8), flags=1)
-
-        cv2.imshow(str(id), img)
-        cv2.waitKey(0)
+    if id == ClassIdEnum.HELM:
+        return (255, 255, 0)
+    elif id == ClassIdEnum.PLAT:
+        return (255, 0, 255)
+    else:
+        return (0, 0, 0)
