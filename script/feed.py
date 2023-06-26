@@ -1,9 +1,7 @@
 import cv2
 import os
-import base64
 import config
 import utils
-from enums import ClassIdEnum, LineEdge
 from helper import rbf
 
 class Detect:
@@ -14,8 +12,7 @@ class Detect:
         #DP = results[0].numpy()
         self.res = results[0].boxes
 
-
-def detect_from_image(model, db = None, img_path = ''):
+def detect_from_image(model, img_path = ''):
     print("Detecting from image...")
 
     # skip kalo gada source
@@ -62,11 +59,10 @@ def detect_from_image(model, db = None, img_path = ''):
     cv2.imshow('feed', img)
     cv2.waitKey(0)
 
-def detect(model, db = None, src = 0):
+def detect(model, src = 0):
     """
     src = 0 >> dari webcam\n
-    src = 'path/ke/video.mp4' >> dari video\n
-    src = 'path/ke/gambar.png' >> dari gambar
+    src = 'path/ke/video.mp4' >> dari video
     """
 
     print("Detecting from video...")

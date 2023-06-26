@@ -14,15 +14,17 @@ def getClassName(num:int) -> str:
         return ''
 
 def boundingBoxColor(id:ClassIdEnum) -> tuple:
-    # ini (R, G, B)
+    # ini (B, G, R)
     # paling kecil 0, paling gede 255
     # misal:
     # (255, 0, 0) = biru
-    # (255, 255, 0) = biru campur hijau = kuning
+    # (0, 255, 0) = hijau
 
     if id == ClassIdEnum.HELM:
-        return (255, 255, 0)
+        return (255, 0, 0)
     elif id == ClassIdEnum.PLAT:
-        return (255, 0, 255)
+        return (0, 255, 0)
+    elif id == ClassIdEnum.PENGENDARA:
+        return (0, 0, 255)
     else:
         return (0, 0, 0)
